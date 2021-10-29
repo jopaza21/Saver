@@ -1,0 +1,49 @@
+test [] bol;
+int levels = 1;
+float TargetID;
+boolean hasTarget = false;
+void setup() {
+  size(400,400);
+  bol = new test[5];
+  for(int i = 0; i < bol.length; i++){
+    bol[i] = new test();
+  }
+}
+void draw() {
+  background(200);
+  if(levels == 1) { level1(); }
+}
+void level1() {
+  if(hasTarget == false){
+    TargetID = bol[(int)(Math.random()*bol.length)].myID;
+  }
+  for(int i = 0; i < bol.length; i++){
+    bol[i].checker();
+    bol[i].move();
+    bol[i].show();
+  }
+}
+class test {
+  int myX, myY, mySize;
+  float myID;
+  test() {
+    myX = (int)(Math.random()*10*90);
+    myY = 0;
+    mySize = 20;
+    myID = (float)(Math.random()*100000);
+  }
+  void move() {
+    myX += 1;
+    myY += 1;
+  }
+  void checker () {
+    if(mousePressed){
+      if(TargetID == myID){
+        levels += 1;
+      }
+    }
+  }
+  void show() {
+    ellipse(myX, myY, mySize, mySize);
+  }
+}
