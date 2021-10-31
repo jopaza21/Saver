@@ -16,6 +16,7 @@ void draw() {
 void level1() {
   if(hasTarget == false){
     TargetID = bol[(int)(Math.random()*bol.length)].myID;
+    hasTarget = true;
   }
   for(int i = 0; i < bol.length; i++){
     bol[i].checker();
@@ -27,19 +28,21 @@ class test {
   int myX, myY, mySize;
   float myID;
   test() {
-    myX = (int)(Math.random()*10*90);
+    myX = (int)(Math.random()*10*40);
     myY = 0;
     mySize = 20;
     myID = (float)(Math.random()*100000);
   }
   void move() {
-    myX += 1;
+    //myX += 1;
     myY += 1;
   }
   void checker () {
     if(mousePressed){
-      if(TargetID == myID){
-        levels += 1;
+      if(mouseX > myX - 10 && mouseX < myX + 10 && mouseY > myY - 10 && mouseY < myY + 10){
+        if(TargetID == myID){
+          levels += 1;
+        }
       }
     }
   }
