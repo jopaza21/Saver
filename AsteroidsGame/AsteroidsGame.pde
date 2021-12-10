@@ -4,6 +4,7 @@ HashMap <String, Boolean> keys = new HashMap <String, Boolean>();
 Spaceship randy;
 Star [] boopy;
 ArrayList <Asteroid> zach = new ArrayList <Asteroid>();
+ArrayList <Bullets> Aaron = new ArrayList <Bullets>();
 int turnRight, turnLeft;
 double speed;
 public void setup() {
@@ -28,11 +29,26 @@ public void draw() {
   randy.show();
   for(int i = 0; i < zach.size(); i++) {
     zach.get(i).move();
-    zach.get(i).show();
+    float d = dist(randy.getX(), randy.getY(), zach.get(i).getX(), zach.get(i).getY());
+    for(int w = 0; w < Aaron.size(); w++) {
+      float s = dist(Aaron.get(w).getX(), Aaron.get(w).getY(), zach.get(i).getX(), zach.get(i).getY());
+      if(s < 10) { zach.remove(i); }
+    }
+    if(d < 20) {
+      zach.remove(i);
+    }
   }
   for(int i = 0; i < boopy.length; i++) {
     fill(255);
     boopy[i].show();
+  }
+  
+  //bullets
+  for(int i = 0; i < Aaron.size(); i++) {
+    float d = dist(randy.getX(), randy.getY(), Aaron.get(i).getX(), Aaron.get(i).getY());
+    Aaron.get(i).move();
+    Aaron.get(i).show();
+    if(d > 300) { Aaron.remove(i); }
   }
 }
 public void keyPressed() {
@@ -81,6 +97,10 @@ public void checkKeyVal() {
     randy.turn(3);
   }
   if(keys.get(" ") == true) {
+    Aaron.add(new Bullets(randy));
+    if(Aaron.size() > 30) {
+      Aaron.remove(0);
+    }
   }
 }
 public void initBoopy() {

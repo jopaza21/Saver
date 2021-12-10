@@ -22,4 +22,7 @@ class Spaceship extends Floater {
     if(myYspeed > limit) { myYspeed -= r; }
     if(myYspeed < -limit) { myYspeed += r; }
   }
+  public float getX() { return (float)myCenterX; }
+  public float getY() { return (float)myCenterY; }
+  public double getPointDirection() { return myPointDirection; }
 }
